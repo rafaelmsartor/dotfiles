@@ -1,0 +1,18 @@
+{{ $packages := list
+    "bat"
+    "build-essential"
+    "curl"
+    "git"
+    "zsh" -}}
+
+{{ $sudo := "sudo " -}}
+{{ if eq .chezmoi.username "root" -}}
+{{  $sudo = "" -}}
+{{ end -}}
+
+#!/bin/bash
+
+set -eufo pipefail
+
+{{ $sudo }} apt update
+{{ $sudo }} apt install -y {{ $packages | join " " }}
